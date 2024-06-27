@@ -1,6 +1,6 @@
 locals {
   prefix-spoke           = "${var.vnet_prefix}-spoke-${var.subscription_id}"
-  next_hop_in_ip_address = "10.0.0.36" # Change it to private IP of your existing NVA
+  next_hop_in_ip_address = "10.100.0.4" # Change it to private IP of your existing NVA
 }
 
 resource "azurerm_resource_group" "spoke-vnet-rg" {
