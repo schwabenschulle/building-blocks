@@ -111,24 +111,3 @@ resource "azurerm_virtual_network_peering" "hub-spoke-peer" {
   use_remote_gateways          = false
   depends_on                   = [azurerm_virtual_network.spoke-vnet]
 }
-
-#
-# Routing from hub to spoke
-#
-
-
-data "azurerm_route_table" "hub-gateway-rt" {
-  provider            = azurerm.hub-provider
-  name                = var.hub-route-table
-  resource_group_name = data.azurerm_resource_group.hub-vnet-rg.name
-}
-
-resource "azurerm_route" "to-spoke" {
-  provider               = azurerm.hub-provider
-  name                   = "toSpoke-${local.prefix-spoke}"
-  resource_group_name    = data.azurerm_resource_group.hub-vnet-rg.name
-  route_table_name       = data.azurerm_route_table.hub-gateway-rt.name
-  address_prefix         = var.address_space_workload
-  next_hop_type          = "VirtualAppliance"
-  next_hop_in_ip_address = local.next_hop_in_ip_address
-}

@@ -39,7 +39,3 @@ variable "hub-vnet" {
   description = "The name of the hub virtual network"
 }
 
-variable "hub-route-table" {
-  type        = string
-  description = "Name of the route table in the hub network"
-}
